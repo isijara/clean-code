@@ -293,7 +293,17 @@ public class CatalogosClienteFacade {
 				<section>
 					<section>
 						<h3 class="em">Nombres de métodos</h3>
-						<section data-markdown>
+						<p class="justify">
+							Deben de ser asertivos y revelar la intención
+							de lo que realizan. Por ejemplo observemos el siguiente método:
+						</p>
+
+					</section>
+
+				</section>
+
+				<section>
+							<section data-markdown>
 
 ```php
 
@@ -325,8 +335,6 @@ function getDistribuidorasConDispositivosActivos() {
 
 ```
 						</section>
-					</section>
-
 				</section>
 
 				<section>
@@ -360,79 +368,264 @@ class ColocadorasIVR {
 
 ```
 
+						</section>
 					</section>
 				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
-			</section>
-
-
-
-
-
-
 
 				<section>
 					<section id="fragments">
 						<h2 class="em">Añade contexto significativo</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+						<p class="fragment justify">
+							Imagina que tienes variables llamadas calle, ciudad, estado y codigoPostal.
+							Viéndolas juntas es claro que forman una dirección ¿Pero qué si ves a la variable
+							estado en alguna parte del código siendo usada sola en un método?
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
+							<br><br>
+							Serviría poner como prefijo direccionEstado.
+
+						</p>
+
 					</section>
+
 					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
+						<h3 class="em">Aunque sería mejor crear una clase Direccion </h3>
+						<section data-markdown>
+
+```php
+class Direccion {
+	private $calle;
+	private $ciudad;
+	private $estado;
+	private $codigoPostal;
+
+	function getDireccion() {
+		return $calle.' '.$codigoPostal.' '.$ciudad.' '.$estado;
+	}
+
+}
+```
+
+						</section>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3 class="em">No añadas contexto gratuito</h3>
+						<ul>
+							<li class="fragment">Creas una app GasStationDeluxe</li>
+							<li class="fragment">Una clase GSDAccountAddress para manejar correos</li>
+							<li class="fragment">Despúes necesitas manejar correos de clientes</li>
+							<li class="fragment">¿Utilizarías GSDAccountAddress?</li>
+						</ul>
+					</section>
+				</section>
+
+
+				<section>
+					<h1 class="em">Funciones</h1>
+				</section>
+
+				<section>
+					<h3 class="green">Small!</h3>
+					<p class="fragment justify">
+						La primera regla de las funciones es que deben de ser pequeñas.
+					</p>
+
+					<p class="fragment justify">
+						La segunda regla es que deberían de ser más pequeñas que eso.
+					</p>
+
+				</section>
+
+				<section>
+					<p class="justify green">Las funciones deben de realizar una sola cosa, hacerla bien y solo ellas hacerla.</p>
+					<img src="img/one.png" alt="">
+				</section>
+
+				<section>
+					<h3 class="em">Express\Model\ValedineroClientes.php</h3>
+					<section data-markdown>
+```php
+public function getConsentimientoSeguro($pkcliente, $perfil) {
+    $query = "SELECT pkconsentimiento, pkModuloOpcional,
+    		IFNULL(PadeceCancerSida,'NO') AS PadeceCancerSida
+            FROM valedinero_clientesconsentimientosseguro
+            WHERE pkcliente=:pkcliente AND status='A'
+            ORDER BY pkconsentimiento DESC LIMIT 1";
+
+    $result = DB::connection($this->connection)->select($query,
+    				['pkcliente' => $this->pkcliente]);
+    $result = (sizeof($result)> 0 ) ? $result[0] : $result;
+
+    if( sizeof($result) <= 0 ) {
+        $perfil['tieneConsentimiento'] = 'NO';
+    } else {
+        $perfil['tieneConsentimiento'] = 'SI';
+        $perfil['pkconsentimiento'] = $result['pkconsentimiento'];
+        $perfil['pkModuloOpcional'] = $result['pkModuloOpcional'];
+        $perfil['padeceCancerSida'] = $result['PadeceCancerSida'];
+    }
+
+    return $perfil;
+}
+```
+					</section>
+				</section>
+
+				<section>
+					<h3 class="em">Express\Model\ValedineroClientes.php</h3>
+					<section data-markdown>
+```php
+public function tieneConsentimientoSeguro( $pkCliente ) {
+	/* código imaginario */
+	return true | false;
+}
+
+
+public function getConsentimientoSeguro( $pkcliente ) {
+    /* código imaginario */
+    return $consentimiento;
+}
+```
 					</section>
 				</section>
 
 				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
+					<h3 class="em justify">
+						Algunos tips para identificar este problema:
+					</h3>
+
+					<ul>
+						<li>La función maneja varios niveles de abstracción(Combina manejo de archivos con
+							cálculos o reglas de negocio).</li>
+						<li>Si puedes ​extraer​ otra función a partir de la actual.</li>
+						<li>Si una función hace solo una cosa, no puedes dividir el código en
+							secciones(Declaración, Inicializar, proceso y salida).</li>
+					</ul>
 				</section>
 
 				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+					<h2 class="green">The Stepdown Rule</h2>
+					<p class="justify">
+						El código debería de leerse como si fuera una pequeña historia bien ordenada.
 					</p>
+
+					<section data-markdown>
+```java
+public void includeSetupAndTearDownPages() throws Exception {
+	this.includeSetupPages();
+	this.includePageContent();
+	this.incluceTearDownPages();
+	this.updatePageContent();
+}
+
+```
+					</section>
+
+
 				</section>
+
+				<section>
+					<section>
+						<h3 class="green">Switch statements</h3>
+						<section data-markdown>
+```java
+public Salario calcularSalario(Empleado e) {
+	throws TipoDeEmpleadoInvalido {
+		switch( e.tipo ) {
+			case COMISIONADO:
+				return calcularComisionado(e);
+			case POR_HORA:
+				return calcularPorHora(e);
+			default:
+				throw new TipoDeEmpleadoInvalido();
+		}
+	}
+}
+```
+						</section>
+
+						<ul>
+							<li class="fragment">Viola el principio de una sola responsabilidad</li>
+							<li class="fragment">Viola el principio Open-Close</li>
+						</ul>
+
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2 class="em">Argumentos de funciones</h2>
+						<p class="justify">
+							El número ideal de argumentos para una función es cero (<span class="green">niladic</span>). Después uno (<span class="green">monadic</span>), seguido de ahí muy cerca (<span class="green">dyadic</span>). Tres argumentos (<span class="green">tryadic</span>) deberían de ser evitados cuando sea posible. Más de tres argumentos (<span class="orange">polyadic</span>) requieren una justificación muy especial y de todas maneras no deberían de ser usados.
+						</p>
+					</section>
+
+					<section>
+						<p class="justify">
+							El uso de muchos argumentos es incluso más tedioso para las tareas de testing. Imaginen la dificultad de programar todos los casos de prueba para asegurar que todas las variaciones de combinaciones de argumentos funcionan adecuadamente.
+						</p>
+					</section>
+
+					<section>
+						<h3 class="em">Argumentos bandera</h3>
+						<p class="justify">
+							Los argumentos bandera son horribles. Pasar un boolean a una función es una muy mala práctica. Es una fuerte declaración de que el código hace más de una cosa.
+
+						</p>
+					</section>
+
+					<section>
+						<h3 class="em">Objetos como argumentos</h3>
+						<p class="justify">
+							Cuando
+						</p>
+					</section>
+
+					<section data-markdown>
+```php
+private function getInformacionVehiculo( $params ) {
+
+    $arrVehiculo['categoria'] =
+    	(!empty($params['categoria']) ? $params['categoria'] : '');
+
+    $arrVehiculo['serie'] =
+    	(!empty($params['serie']) ? $params['serie'] : '');
+
+    $arrVehiculo['motor'] =
+    	(!empty($params['motor']) ? $params['motor'] : '');
+
+    $arrVehiculo['numPlaca'] =
+    	(!empty($params['numPlaca']) ? $params['numPlaca'] : '');
+
+    return $arrVehiculo;
+}
+```
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3 class="green">Sin efectos secundarios</h3>
+					</section>
+
+					<section>
+						<h3 class="green">Command Query Separation</h3>
+						<p class="justify">
+							Las funciones deberían de hacer algo o responder algo, pero no ambas.
+						</p>
+						<section data-markdown>
+
+						</section>
+
+
+					</section>
+				</section>
+
+
+
+
 
 				<section>
 					<section data-background="#dddddd">
