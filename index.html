@@ -233,34 +233,136 @@
 							Escoger buenos nombres toma tiempo, pero ahorra más de lo que toma.
 						</p>
 
+
+
+						<section class="fragment" data-markdown>
+```javascript
+var d; //elapsed time in days
+```
+						</section>
+
+						<span class="fragment">
+							<p class="justify">
+								En cambio
+							</p>
+
+							<section data-markdown>
+
+```javascript
+var elapsedTimeInDays;
+var daysSinceCreation;
+var fileAgeInDays;
+```
+							</section>
+
+						</span>
+
 						<p class="fragment justify">
-							El
+							"Una diferencia entre un programador muy inteligente y un programador profesional
+							es que el profesional entiende que la claridad es la reina" //<span class="em">Evita mapeo mental</span>.
 						</p>
 
+				</section>
+			</section>
 
+			<section>
+				<section>
+					<h2 class="green">Haz distinciones significativas</h2>
+					<section data-markdown>
+
+```java
+package com.aliax.web.modelo.atencionalcliente;
+
+public class CatalogosClienteFacade {
+
+	public static Clientes clientesLeer(String pkopcion, ...) {}
+
+	public static Clientes clientesTraer(String nombre, ...) {}
+
+	public static InfoSucursal getInfoSucursal(Integer pksucursal ...) {}
+
+	public static void grabaModelosDeVehiculos(ModelosDeVehiculos modelos ...) {}
+
+}
+
+```
+					</section>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h3 class="em">Nombres de métodos</h3>
+					<section data-markdown>
+
+```php
+
+function getDispositivosActivos() {
+
+    GLOBAL $dbh;
+
+    $query = 'SELECT pkcolocadora FROM
+    		apiConCredito.dispositivos
+          	WHERE sesionActiva = 1 AND baneado = 0
+          	group by pkcolocadora';
+
+    $result = execQ( $query, $dbh, 'mysqli' );
+    return $result['fetch_assoc'];
+
+}
+
+```
+
+
+```php
+
+function getDistribuidorasConDispositivosActivos() {
+   /*
+		////
+		////
+   */
+}
+
+```
+					</section>
+				</section>
+
+			</section>
+
+			<section>
+
+				<section>
+					<h2 class="em">Escoge una palabra por concepto</h2>
+					<section data-markdown>
+```java
+public class CatalogosClienteFacade {
+
+	public static Clientes clientesLeer( String pkopcion, ...) {}
+	public static Clientes clientesTraer( String nombre, ...) {}
+	public static Integer retirosParcialesGrabar() {}
+	public static void grabaModelosDeVehiculos(ModelosDeVehiculos modelos) {}
+}
+
+```
+```php
+class ColocadorasIVR {
+
+	static function findByNombreUsuario( $nombreUsuario) {}
+
+    static function findByReferencia( $referencia, $campos = [] ) {}
+
+    static function findByReferenciaNip( $referencia, $nip, $campos = [] ) {}
+
+    static function findByReferenciaMD5( $referencia, $campos = [] ) {}
+
+    static function findByReferenciaMD5AndFechaNacimiento( $numeroReferencia, $fechaNacimiento ) {}
+
+```
 
 
 
 					</section>
-				</section>
 
-
-
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
 				</section>
 
 				<section>
