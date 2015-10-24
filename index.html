@@ -607,7 +607,20 @@ private function getInformacionVehiculo( $params ) {
 
 				<section>
 					<section>
-						<h3 class="green">Sin efectos secundarios</h3>
+						<h2 class="green">Sin efectos secundarios</h2>
+						<section data-markdown>
+```php
+function verificarPasswordExpress($usuario, $password) {
+	if( $usuario->getPassword() == $password ) {
+		$this->iniciarSesion($usuario);
+		return true;
+	} else {
+		return false;
+	}
+}
+
+```
+						</section>
 					</section>
 
 					<section>
